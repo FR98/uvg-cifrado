@@ -3,6 +3,7 @@ from base64 import b64encode
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 import random
+import ast
 
 """
 1. 
@@ -98,10 +99,52 @@ while continuar:
                 pass
         decrypted = "".join(decrypted_list).replace('`', '')
         print(">>> ", decrypted)
+
     elif opcion == '3':
-        pass
+        key = input("Ingrese una llave: \n > ")
+        key = convertir_16_bytes(key, is_key=True)
+        
+        # Se crea el AES con la llave y el vector inicial
+        aes = AES.new(key, AES.MODE_OFB, iv)
+
+        with open('./file_prueba.txt', 'r') as doc:
+            doc_data = doc.read()
+            doc_data = convertir_16_bytes(doc_data)
+
+            encrypted_list = []
+            for d in doc_data:
+                encrypted_list.append(aes.encrypt(d))
+            doc.close()
+
+        with open('./file_encrypted.txt', 'w') as doc:
+            doc.write(str(encrypted_list))
+            doc.close()
+
     elif opcion == '4':
-        pass
+        key = input("Para desencriptar el mensaje ingrese la llave: \n > ")
+        key = convertir_16_bytes(key, is_key=True)
+
+        # Se crea el AES con la llave y el vector inicial
+        aes = AES.new(key, AES.MODE_OFB, iv)
+        decrypted = None
+
+        with open('./file_encrypted.txt', 'r') as doc:
+            doc_data = doc.read()
+            encrypted_list = ast.literal_eval(doc_data)
+
+            decrypted_list = []
+            for e in encrypted_list:
+                try:
+                    decrypted_list.append(aes.decrypt(e).decode("utf-8"))
+                except:
+                    pass
+            decrypted = "".join(decrypted_list).replace('`', '')
+            doc.close()
+
+        with open('./file_decrypted.txt', 'w') as doc:
+            doc.write(decrypted)
+            doc.close()
+
     elif opcion == '5':
         continuar = False
         print("Bye")
