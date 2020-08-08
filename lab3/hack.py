@@ -8,7 +8,8 @@ import requests
 from operator import itemgetter
 
 # URL = "http://localhost:8000"
-URL = "http://localhost:8000/good-protection"
+# URL = "http://localhost:8000/good-protection"
+URL = "http://localhost:8000/good-protection-2"
 
 N = 100
 TOKEN_SIZE = 5
