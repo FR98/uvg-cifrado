@@ -1,5 +1,6 @@
 import time
 from flask import Flask, request
+import hmac
 
 app = Flask(__name__)
 
@@ -17,13 +18,25 @@ def strcmp(s1, s2):
 
 
 @app.route("/")
-def protected():
+def bad_protected():
     token = request.headers.get('X-TOKEN')
 
     if not token:
         return "Missing token", 401
 
     if strcmp(token, SECRET_TOKEN):
+        return "Hello admin user! Here is your secret content"
+    else:
+        return "WHO ARE YOU? GET OUT!", 403
+
+@app.route("/good-protection")
+def protected():
+    token = request.headers.get('X-TOKEN')
+
+    if not token:
+        return "Missing token", 401
+
+    if hmac.compare_digest(token, SECRET_TOKEN):
         return "Hello admin user! Here is your secret content"
     else:
         return "WHO ARE YOU? GET OUT!", 403

