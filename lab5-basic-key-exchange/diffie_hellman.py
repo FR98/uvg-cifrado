@@ -31,7 +31,7 @@ print("\nVariables Publicas: ")
 print("\tPrimo: {}".format(primo))
 print("\tGenerador: {}".format(generador))
 
-a, b = randint(1, p-1), randint(1, p-1)
+a, b = randint(1, primo-1), randint(1, primo-1)
 
 # Alice envia a Bob A = g^a mod p
 # Bob envia a Alice B = g^b mod p
