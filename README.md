@@ -1,3 +1,7 @@
-# wh-random
+# Cifrado de la información
 
-Link al video explicativo [aqui](https://youtu.be/oqWFSHl_SAc)
+- José Block
+- Marco Fuentes
+- Andy Castillo
+- Francisco Rosal
+- Gian Luca Rivera
