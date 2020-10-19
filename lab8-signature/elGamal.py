@@ -5,10 +5,11 @@ Implementacion del algoritmo de cifrado de ElGamal
 from random import randint
 import random
 from math import pow
-
+#limites de numeros a generar
 min = pow(10, 5)
 max = pow(10, 6)
 
+#Funcion para comprobar si un numero es primo
 def isPrime(n):
     if n == 2 or n == 3:
         return True
@@ -27,13 +28,13 @@ def isPrime(n):
             return False
         f += 6
     return True
-
+#devuelve un numero primo aleatorio
 def randomPrime(min, max):
     rand = random.randint(min, max)
     while (not isPrime(rand)):
         rand = random.randint(min, max)
     return rand
-
+#calcula el gcd entre dos numeros
 def gcd(a, b):
     if a < b:
         return gcd(b, a)
@@ -41,13 +42,13 @@ def gcd(a, b):
         return b
     else:
         return gcd(b, a % b)
-
+#Funcion que genera la llave
 def gen_key(primo):
     key = random.randint(min, primo)
     while gcd(primo, key) != 1:
         key = random.randint(min, primo)
     return key
-
+#Funcion que cifra
 def encrypt(msg, primo, A, g):
     en_msg = []
     b = gen_key(primo)
@@ -59,7 +60,7 @@ def encrypt(msg, primo, A, g):
         en_msg[i] = s * ord(en_msg[i])
     return en_msg, B
 
-
+#Funcion que descifra
 def decrypt(en_msg, B, a, primo):
     dr_msg = []
     secreto = (B ** a) % primo
