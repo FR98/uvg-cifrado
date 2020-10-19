@@ -6,7 +6,7 @@ import hashlib
 import hmac
 from base64 import b64encode
 
-
+#devuelve un hmac con sha 256
 def hmacSha256(msg, key):
     message = bytes(source = msg, encoding = 'utf-8')
     secret  = bytes(source = key, encoding = 'utf-8')

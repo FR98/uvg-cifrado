@@ -7,19 +7,19 @@ import random
 from math import pow
 from sha256 import hmacSha256
 from elGamal import encrypt, decrypt, randomPrime , gen_key
-
+#limites
 min = pow(10, 5)
 max = pow(10, 6)
 
 MESSAGE = "Este es un mensaje de prueba"
-
+#Se generan los numeros que seran necesarios para el proceso
 primo = randomPrime(min, max)
 print('Primo: ', primo)
 g = random.randint(2, primo)
 print('Generador: ', g)
 
 
-# Info de Alice
+# Informacion de Alice que enviara a Bob
 aSecret = gen_key(primo)
 aPublic = (g ** aSecret) % primo
 
